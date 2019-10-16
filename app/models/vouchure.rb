@@ -1,0 +1,3 @@
+class Vouchure < ApplicationRecord
+    
+end

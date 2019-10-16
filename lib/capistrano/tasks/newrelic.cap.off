@@ -1,0 +1,47 @@
+namespace :deploy do
+  #
+  # namespace :newrelic do
+  #
+  #   desc <<-DESC
+  #     Creates the newrelic.yml configuration file in shared path
+  #     by copying the newrelic.yml.sample file in /config
+  #
+  #     When this recipe is loaded, newrelic:setup is automatically configured \
+  #     to be invoked after deploy:setup.
+  #   DESC
+  #   task :setup do
+  #     on roles(:app) do
+  #       # destination_file = "#{shared_path}/config/newrelic.yml"
+  #
+  #       # if remote_file_exists?(destination_file)
+  #       #   puts "NewRelic file exists for: "+destination_file+"...so skipping..."
+  #       # else
+  #
+  #       location = fetch(:template_dir, "config") + '/newrelic.yml.sample'
+  #       f = File.read(location)
+  #
+  #       config = YAML::load(f)
+  #       config[fetch(:rails_env)]["app_name"] += "::#{fetch(:domain)}"
+  #
+  #       execute "mkdir -p #{shared_path}/config"
+  #
+  #       upload! StringIO.new(YAML::dump(config)), "#{shared_path}/config/newrelic.yml"
+  #     end
+  #   end
+  #
+  #   desc <<-DESC
+  #     [internal] Updates the symlink for appsignal.yml file to the just deployed release.
+  #   DESC
+  #   task :symlink do
+  #     on roles(:app) do
+  #       execute "ln -nfs #{shared_path}/config/newrelic.yml #{release_path}/config/newrelic.yml"
+  #     end
+  #   end
+  #
+  # end
+  #
+  # before 'deploy:restart', 'deploy:newrelic:setup'
+  # before 'deploy:restart', 'deploy:newrelic:symlink'
+  before 'deploy:finished', 'newrelic:notice_deployment'
+
+end

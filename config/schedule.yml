@@ -1,0 +1,11 @@
+## These are based on UTC time not local time...
+## Daily Emails
+redemption_report:
+  cron: "0 16 * * 6"
+  class: "SendRedemptionReportJob"
+  queue: default
+
+remittance_build:
+  cron: "0 12,20 * * *"
+  class: "RemittanceBuildJob"
+  queue: default

@@ -1,0 +1,2 @@
+class ThnxTransaction < Transaction
+end

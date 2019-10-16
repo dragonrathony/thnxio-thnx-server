@@ -1,0 +1,22 @@
+<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+        <h4>Detailed report of thnx! redeemed at <%= @resource[:account_name] %> </h4>
+        <p><%= @resource[:address] %></p>
+        
+        <p><%= @resource[:start_date]%> <%= @resource.end_date %></p>
+        <p><%= @resource[:big_thnx_count] %> BIG thnx! $<%= @resource.big_thnx_total %></p>
+        <p><%= @resource[:little_thnx_count] %> LITTLE thnx! $<%= @resource.little_thnx_total %></p>
+        <p>Total dollar value: $<%= @resource[:total] %></p>
+        <p>Redeemed as follows:</p>
+        <% @resource.items.each do |item| %>
+            <p><%= item.redeemed_at %> <%= item.product.name %> thnx!</p>
+        <% end %>
+
+        <p>Prices based on the agreed price of $<%= @resource[:unit_thnx_price]%></p>
+        <p>Thnx for being a part of our gratitude economy <a href="https://thnx.io">thnx.io</a> </p>
+
+        <img src="https://<%=ENV['BASE_HOST']%>/images/logo.png" alt="thnx! logo" width="90"/>
+    </td>
+  </tr>
+</table>

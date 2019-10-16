@@ -1,0 +1,33 @@
+root = "<%= current_path %>"
+
+# Change to match your CPU core count
+workers <%= fetch(:puma_worker_count) %>
+
+# Min and Max threads per worker
+threads 1, <%= fetch(:puma_max_threads) %>
+
+preload_app!
+daemonize true
+
+shared_dir = "#{root}/tmp/pids"
+
+# Default to productions
+rails_env = "<%= fetch(:rails_env) %>"
+environment rails_env
+
+# Set up socket location
+bind "unix://#{shared_dir}/puma.sock"
+
+# Logging
+stdout_redirect "#{root}/log/puma.stdout.log", "#{root}/log/puma.stderr.log", true
+
+# Set master PID and state locations
+pidfile "#{shared_dir}/puma.pid"
+state_path "#{shared_dir}/puma.state"
+activate_control_app
+
+on_worker_boot do
+  require "active_record"
+  ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+  ActiveRecord::Base.establish_connection(YAML.load_file("#{root}/config/database.yml")[rails_env])
+end

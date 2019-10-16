@@ -1,0 +1,2 @@
+class GiftTransaction < Transaction
+end

@@ -1,0 +1,40 @@
+namespace :deploy do
+
+  # Taken from same newrelic cap task
+  namespace :appsignal do
+
+    desc <<-DESC
+      Creates the appsignal.yml configuration file in shared path
+      by copying the appsignal.yml.sample file in /config
+
+      When this recipe is loaded, appsignal:setup is automatically configured \
+      to be invoked after deploy:setup.
+    DESC
+    task :setup do
+      on roles(:app) do
+        location = fetch(:template_dir, "config") + '/appsignal.yml.sample'
+        f = File.read(location)
+
+        config = YAML::load(f)
+        config[fetch(:rails_env)]['name'] += "::#{fetch(:domain)}"
+
+        execute "mkdir -p #{shared_path}/config"
+
+        upload! StringIO.new(YAML::dump(config)), "#{shared_path}/config/appsignal.yml"
+      end
+    end
+
+    desc <<-DESC
+      [internal] Updates the symlink for appsignal.yml file to the just deployed release.
+    DESC
+    task :symlink do
+      on roles(:app) do
+        execute "ln -nfs #{shared_path}/config/appsignal.yml #{release_path}/config/appsignal.yml"
+      end
+    end
+
+  end
+
+  before 'deploy:restart', 'deploy:appsignal:setup'
+  before 'deploy:restart', 'deploy:appsignal:symlink'
+end

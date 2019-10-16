@@ -1,0 +1,44 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.5",
+    "version": "1.0.0",
+    "id": "3fcb5d83-dcaa-4782-9353-df1fce77f61f",
+    "packageName": "thnx!",
+    "developer": {
+        "name": "Thnx Pty Lts",
+        "websiteUrl": "https://www.thnx.io",
+        "privacyUrl": "https://thnx.io/privacypolicy",
+        "termsOfUseUrl": "https://thnx.io/privacypolicy"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "thnx!",
+        "full": "thnx! Gratitude App"
+    },
+    "description": {
+        "short": "Feel grateful. Send thnx! Get coffee",
+        "full": "thnx! Gratitude App makes it easy to express feeling of gratitude. Send a note of thnx! to a colleague or a friend using the thnx! app inside Microsoft Teams - your recipient gets your note and a delicious cup of coffee from a network of thnx! activated cafes.\\nTeams perform optimally when there are high levels of trust, and trust is built through recognition and gratitude. Thanking your staff once every 7 days builds optimal performance according to research from Gallup."
+    },
+    "accentColor": "#BD0F68",
+    "staticTabs": [
+        {
+            "entityId": "Thnx",
+            "name": "Thnx",
+            "contentUrl": "https://staging2.thnx.io/ms-teams",
+            "websiteUrl": "https://staging2.thnx.io/ms-teams",
+            "scopes": [
+                "personal"
+            ]
+        }
+    ],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "staging2.thnx.io"
+    ]
+}

@@ -1,0 +1,17 @@
+---
+:concurrency: 5
+staging:
+  :concurrency: 10
+'test-thnxio':
+  :concurrency: 10
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:verbose: false
+production:
+  :concurrency: 20
+:queues:
+  - default
+  - [high, 2]
+  - [critical, 4]
+  - [mailers, 7]
+  - low

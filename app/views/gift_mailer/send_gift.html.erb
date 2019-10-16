@@ -1,0 +1,158 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+ xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <!--[if gte mso 9]><xml>
+   <o:OfficeDocumentSettings>
+    <o:AllowPNG/>
+    <o:PixelsPerInch>96</o:PixelsPerInch>
+   </o:OfficeDocumentSettings>
+  </xml><![endif]-->
+  <!-- fix outlook zooming on 120 DPI windows devices -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- So that mobile will display zoomed in -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- enable media queries for windows phone 8 -->
+  <meta name="format-detection" content="date=no"> <!-- disable auto date linking in iOS 7-9 -->
+  <meta name="format-detection" content="telephone=no"> <!-- disable auto telephone linking in iOS 7-9 -->
+  <title>thnx.io</title>
+  
+  <style type="text/css">
+body {
+  margin: 0;
+  padding: 0;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+table {
+  border-spacing: 0;
+}
+table td {
+  border-collapse: collapse;
+}
+.ExternalClass {
+  width: 100%;
+}
+.ExternalClass,
+.ExternalClass p,
+.ExternalClass span,
+.ExternalClass font,
+.ExternalClass td,
+.ExternalClass div {
+  line-height: 100%;
+}
+.ReadMsgBody {
+  width: 100%;
+  background-color: #ffffff;
+}
+table {
+  mso-table-lspace: 0pt;
+  mso-table-rspace: 0pt;
+}
+img {
+  -ms-interpolation-mode: bicubic;
+}
+.yshortcuts a {
+  border-bottom: none !important;
+}
+@media screen and (max-width: 599px) {
+  .force-row,
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+@media screen and (max-width: 400px) {
+  .container-padding {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+.footer_text {
+  padding-top: 12px !important;
+}
+.ios-footer a {
+  color: #aaaaaa !important;
+  text-decoration: underline ;
+  text-align: "center";
+}
+.action_button {
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff !important;
+  text-decoration: none !important;
+  background-color: #d20080 !important;
+}
+.code {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 30px;
+  color: #fff !important;
+  text-decoration: none !important;
+  background-color: #d20080 !important;
+  font-weight: bold;
+  text-align:center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+a[href^="x-apple-data-detectors:"],
+a[x-apple-data-detectors] {
+  color: "#d20080" !important;
+  text-decoration: none !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+}
+</style>
+</head>
+
+<body style="margin:0; padding:0;" bgcolor="#374359" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<!-- 100% background wrapper (grey background) -->
+<table border="0" width="100%" cellspacing="0" cellpadding="0" bgcolor="#374359">
+<tbody>
+<tr>
+<td style="background-color: #374359;" align="center" valign="top" bgcolor="#374359"><br /> <!-- 600px container (white background) -->
+<table class="container" style="width: 600px; max-width: 600px;" border="0" width="600" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td class="container-padding content" align="left">
+<div style="border-radius: 6px; color:#000; background-color: #fff; padding: 12px 24px 12px 24px;">
+        <div style="text-align: right; border-radius: 6px; color:#000; background-color: #fff; padding: 12px 24px 12px 24px;">
+          
+            <img src="https://<%=ENV['BASE_HOST']%>/images/logo.png" alt="thnx! logo" width="75"/>
+        </div>
+        <p>Hi, <%= @first_name %></p>
+        <p>You have received a gift of thnx! from <%= @sender_name %> with the message "<%= @message %>"</p>
+        <p><a href="https://<%=ENV['BASE_HOST']%>/download-apps">Download our app</a> to redeem your thnx! and use this unique code </p>
+        <div style="text-align: center; margin: 20px" ><span class="code"><%= @token %></span></div>
+        <p>Keeping the gratitude flowing with <a href="https://thnx.io">thnx!</a></p>
+</div>
+</td>
+</tr>
+        <tr>
+          <td class="container-padding footer-text" align="center" style="color:#eee; font-family:Helvetica, Arial, sans-serif;font-size:12px;line-height:16px;color:#aaaaaa;padding-left:24px;padding-right:24px">
+            
+            <br><br>
+
+            <a href="http://thnx.io" style="color:#aaaaaa">thnx.io</a><br>
+            <span class="ios-footer">
+                200 Adelaide St, Brisbane, QLD 4000<br/>
+            </span>
+
+            <br><br>
+
+          </td>
+        </tr>
+</tbody>
+</table>
+<!--/600px container --></td>
+</tr>
+</tbody>
+</table>
+<!--/100% background wrapper-->
+
+</body>
+</html>

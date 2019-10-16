@@ -1,0 +1,20 @@
+[Service]
+# Background process configuration (use with --daemon in ExecStart)
+Type=forking
+
+# To learn which exact command is to be used to execute at "ExecStart" of this
+# Service, ask Capistrano: `cap <stage> puma:start --dry-run`. Your result
+# may differ from this example, for example if you use a Ruby version
+# manager. `<WD>` is short for "your working directory". Replace it with your
+# path.
+ExecStart=bundle exec puma -C <%="#{current_path}"%>/shared/config/puma.rb --daemon
+
+# To learn which exact command is to be used to execute at "ExecStop" of this
+# Service, ask Capistrano: `cap <stage> puma:stop --dry-run`. Your result
+# may differ from this example, for example if you use a Ruby version
+# manager. `<WD>` is short for "your working directory". Replace it with your
+# path.
+ExecStop=bundle exec pumactl -S <%="#{current_path}"%>/shared/tmp/pids/puma.state stop
+
+# PIDFile setting is required in order to work properly
+PIDFile=<%="#{current_path}"%>/shared/tmp/pids/puma.pid

@@ -1,0 +1,3 @@
+class InvoiceTransaction < Transaction
+    
+end

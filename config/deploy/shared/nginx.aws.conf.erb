@@ -1,0 +1,77 @@
+upstream puma-<%=fetch(:stage)%> {
+  server unix:<%=fetch(:deploy_to)%>/shared/tmp/pids/puma.sock fail_timeout=0;
+}
+
+# Used to redirect port 80 to https
+server {
+  listen      80;
+  server_name <%= "#{fetch(:server_name)} *.#{fetch(:server_name)}" %>;
+
+  location ^~ ^<%="#{fetch(:server_name)}"%> {
+    rewrite     ^   https://www.$host$request_uri? permanent;
+  }
+
+  rewrite     ^   https://$host$request_uri? permanent;
+}
+
+# SSL (https:443) is terminated at a loadbalancer and http directed to port 9443
+# This port is also used for health checks of the loadbalancer
+server {
+  server_name <%= "#{fetch(:server_name)} *.#{fetch(:server_name)}" %>;
+  listen 9443;
+  root <%= fetch(:deploy_to) %>/current/public;
+  access_log  /var/log/nginx/<%="#{fetch(:stage)}"%>_access.log;
+  error_log   /var/log/nginx/<%="#{fetch(:stage)}"%>_error.log;
+  rewrite_log on;
+
+  location ^~ /assets/ {
+    gzip_static on;
+    expires max;
+    add_header ETag "";
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Allow-Methods' 'GET, HEAD, OPTIONS';
+    add_header 'Access-Control-Allow-Headers' '*';
+    add_header 'Access-Control-Max-Age' 3628800;
+  }
+
+  location ~* \.(eot|ttf|woff|woff2)$ {
+    add_header Access-Control-Allow-Origin *;
+  }
+
+  location ^~ /healthcheck {
+    return 200;
+  }
+
+  try_files $uri/index.html $uri @puma;
+  location @puma {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://puma-<%=fetch(:stage)%>;
+  }
+
+  if (-f /opt/maintenance.on) {
+   return 503;
+  }
+
+  error_page 500 @maintenance;
+  error_page 502 @maintenance;
+  error_page 503 @maintenance;
+  error_page 504 @maintenance;
+  location @maintenance {
+    rewrite ^(.*)$ /maintenance.html break;
+  }
+
+  client_max_body_size       50m;
+  client_body_buffer_size    128k;
+
+  proxy_connect_timeout      300s;
+  proxy_send_timeout         300s;
+  proxy_read_timeout         300s;
+
+  proxy_buffer_size          4k;
+  proxy_buffers              4 32k;
+  proxy_busy_buffers_size    64k;
+  proxy_temp_file_write_size 64k;
+
+}

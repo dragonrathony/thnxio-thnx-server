@@ -1,0 +1,17 @@
+namespace :npm do
+  desc <<-DESC
+       Build our webpack system
+    DESC
+  task :build do
+    on roles fetch(:npm_roles) do
+      within fetch(:npm_target_path, release_path) do
+        with fetch(:npm_env_variables, {}) do
+          execute :npm, 'run-script build', %w(--production --silent --no-progress)
+
+        end
+      end
+    end
+  end
+end
+
+after 'npm:install', 'npm:build'

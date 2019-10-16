@@ -1,0 +1,3 @@
+class PaymentTransaction < Transaction
+    
+end

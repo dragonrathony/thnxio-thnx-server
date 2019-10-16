@@ -1,0 +1,16 @@
+namespace :deploy do
+  desc "compiles webpack locally then rsyncs"
+  task :compile_webpack_locally do
+    run_locally do
+      execute "DOTENV_CONFIG_PATH=./.env.#{fetch :rails_env} RAILS_ENV=#{fetch :rails_env} REACT_APP_RAILS_ENV=#{fetch :rails_env} npm run-script build"
+    end
+    on roles(:app) do |role|
+      run_locally do
+        execute "rsync -av ./public/index.html #{role.user}@#{role.hostname}:#{release_path}/public/index.html;"
+        execute "rsync -av ./public/static #{role.user}@#{role.hostname}:#{release_path}/public"
+      end
+      sudo "chmod -R 755 #{release_path}/public/index.html"
+      sudo "chmod -R 755 #{release_path}/public/static"
+    end
+  end
+end

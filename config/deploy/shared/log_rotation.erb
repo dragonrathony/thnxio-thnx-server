@@ -1,0 +1,9 @@
+<%= fetch(:deploy_to) %>/shared/log/*.log {
+  daily
+  size 5000m
+  missingok
+  rotate 14
+  compress
+  delaycompress
+  notifempty
+}
